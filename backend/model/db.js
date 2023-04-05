@@ -9,11 +9,14 @@ const storeSchema = new Schema({
   tel: { type: String, required: true },
   rating: { type: Number, required: true },
   address: { type: String, required: true },
-  longitude: { type: Number, required: true }, // TODO
-  latitude: { type: Number, required: true }, // TODO
+  location: {
+    type: { type: String, enum: ['Point'], required: true },
+    coordinates: { type: [Number], required: true },
+  },
   updateDate: { type: Date, required: true, default: Date.now },
   stocks: { type: Array } // TODO
 })
+storeSchema.index({ location: '2dsphere' });
 
 const foodSchema = new Schema({
   family_pid: { type: String, required: true }, // TODO
